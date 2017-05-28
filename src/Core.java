@@ -17,9 +17,8 @@ private static boolean title;
         Graphics2D graf = Displey.getGraphics();
 
         graf.setColor(Color.PINK);
-//        graf.drawRect(10,10,50,50);
-        for (int y = 0; y <map.length ; y++) {
-            for (int x = 0; x <map.length ; x++) {
+        for (int y = 0; y < high ; y++) {
+            for (int x = 0; x < width ; x++) {
                 if (map[x][y] == 1){
                     graf.fillRect(x * length,y * length, length,length);
                 }
