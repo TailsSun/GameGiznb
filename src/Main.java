@@ -1,14 +1,13 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Random;
-
 public class Main {
-    static int[][] mas = new int[510][510];
+    static int width = 70;
+    static int high = 70;
+    static int lenght = 10;
+    static int[][] mas = new int[width][high];
 
     public static void main(String[] args) {
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 //
 //        System.out.println("Введи 3 раза по 2 координаты трёх ячеек первоначальной жизни : больше 0 меньше 50! удачи");
 //
@@ -30,47 +29,71 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+        mas[2][1] = 1;
+        mas[3][2] = 1;
+        mas[1][3] = 1;
+        mas[2][3] = 1;
+        mas[3][3] = 1;
+
+
         mas[25][25] = 1;
         mas[25][26] = 1;
         mas[26][25] = 1;
         mas[27][25] = 1;
         mas[28][25] = 1;
         mas[26][28] = 1;
-        while(true) {
 
-            podscetGizni(mas);
-            vivod(mas);
+        for (int y = 0; y < mas.length; y++) {
+            for (int x = 0; x < mas.length; x++) {
+                final double rnd = Math.random() * 100;
+                if (rnd < 15) {
+                    mas[x][y] = 1;
+                }
+            }
+        }
+
+
+        while (true) {
+
+
+            Core.draw(mas, width, high, lenght);
+
+//            vivod(mas);
+            mas = podscetGizni(mas);
+
 
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
-    private static void podscetGizni(int[][] mas1) {
+    private static int[][] podscetGizni(int[][] mas1) {
 
-        int proverkasosedey = 0;
-        for (int x = 0; x < mas1.length ; x++) {
-            for (int y = 0; y < mas1.length ; y++) {
 
-                proverkasosedey = proverkaSosedei(x,y);
+        int[][] tmpmass = new int[width][high];
+        for (int y = 0; y < mas1.length; y++) {
+            for (int x = 0; x < mas1.length; x++) {
 
-                if(mas1[x][y] == 0){// если жизни нет проверяем соседей и если их 3 тогда даём новую жизнь
-                   if(proverkasosedey == 3){
-                       mas1[x][y] = 1;
-                   }
-                   if(mas1[x][y] == 1 && proverkasosedey < 2 && proverkasosedey > 3){
-                        mas1[x][y] = 0;
+                int proverkasosedey = proverkaSosedei(x, y);
+                if (proverkasosedey == 3) {
+                    tmpmass[x][y] = 1;
+                }
+                if (mas1[x][y] == 1) {
+                    if (proverkasosedey == 2) {
+                        tmpmass[x][y] = 1;
+                    }
+                    if (proverkasosedey < 2 || proverkasosedey > 3) {
+                        tmpmass[x][y] = 0;
                     }
                 }
 
 
             }
         }
-
+        return tmpmass;
     }
 
     private static int proverkaSosedei(int x, int y) {
@@ -162,7 +185,7 @@ public class Main {
             }
         }
 
-        if (y == 0 & x > 0 & x < mas.length-1) { // проверяем у верхней стенки
+        if (y == 0 & x > 0 & x < mas.length - 1) { // проверяем у верхней стенки
             if (mas[x + 1][y] == 1) {
                 chisloGizni++;
             }
@@ -197,8 +220,8 @@ public class Main {
                 chisloGizni++;
             }
         }
-               // проверка в поле где 8 клеток
-        if(x > 0 && y > 0 && y < mas.length-1 && x < mas.length-1) {
+        // проверка в поле где 8 клеток
+        if (x > 0 && y > 0 && y < mas.length - 1 && x < mas.length - 1) {
             if (mas[x - 1][y - 1] == 1) {
                 chisloGizni++;
             }
@@ -231,9 +254,9 @@ public class Main {
 
     private static void vivod(int[][] a) {
 
-        for (int x = 0; x <a.length ; x++) {
-            for (int y = 0; y <a.length ; y++) {
-                System.out.print(a[x][y]+ " ");
+        for (int x = 0; x < a.length; x++) {
+            for (int y = 0; y < a.length; y++) {
+                System.out.print(a[y][x] + " ");
             }
             System.out.println();
 
