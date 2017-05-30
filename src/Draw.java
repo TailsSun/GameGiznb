@@ -1,11 +1,11 @@
 /**
  * Created by DNS on 27.05.2017.
  */
-import Display.Displey;
+import Draw.Displey;
 
 import java.awt.*;
 
-public class Core {
+public class Draw {
 private static boolean title;
     public static void draw(int[][] map, int width, int high, int length){
 

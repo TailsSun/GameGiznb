@@ -1,4 +1,4 @@
-package Display;
+package Draw;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,6 @@ import java.util.Arrays;
  * Created by DNS on 10.04.2017.
  */
 public class Displey {
-    private static boolean			created	= false;
     private static JFrame			window;
     private static Canvas			content;
 
@@ -23,9 +22,6 @@ public class Displey {
     private static BufferStrategy	bufferStrategy;
 
     public static void create(int width, int height, String title, int _clearColor, int numBuffers) {
-
-        if (created)
-            return;
 
         window = new JFrame(title);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +45,6 @@ public class Displey {
         content.createBufferStrategy(numBuffers);
         bufferStrategy = content.getBufferStrategy();
 
-        created = true;
 
     }
 
@@ -68,10 +63,6 @@ public class Displey {
     }
 
     public static void destroy() {
-
-        if (!created)
-            return;
-
         window.dispose();//убиваем окно
 
     }
@@ -81,9 +72,4 @@ public class Displey {
         window.setTitle(title);
 
     }
-
-//    public static void addKeyboard(Keyboard keyboard) {
-//        window.add(keyboard);
-//    }
-
 }
